@@ -13,6 +13,11 @@
 </div>
 
 <div>
+  <h3>Requisição</h3>
+  <img src="./assets/request.png" />
+</div>
+
+<div>
   <div> <h2> Próximos passos </h2> </div>
   <ul>
     <li>Testes (JUnit) </li>
