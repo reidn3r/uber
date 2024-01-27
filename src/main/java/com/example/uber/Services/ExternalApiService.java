@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.Pipeline;
 
 import java.io.IOException;
 import java.util.*;
@@ -31,6 +32,7 @@ public class ExternalApiService {
                     - Se sim, retorna o dado salvo em memoria.
                     - Se não, armazena tudo.
             */
+            Pipeline pipeline = jedis.pipelined();
             if(!jedis.exists(key)){
                 double latitude, longitude;
                 String member;
@@ -48,8 +50,9 @@ public class ExternalApiService {
                     longitude = Double.parseDouble(ft.getLongitude());
                     member = ft.getApplicant().replace(" ", "-");
 
-                    jedis.geoadd(key, longitude, latitude, member);
+                    pipeline.geoadd(key, longitude, latitude, member);
                 }
+                pipeline.sync();
             }
         }
     }

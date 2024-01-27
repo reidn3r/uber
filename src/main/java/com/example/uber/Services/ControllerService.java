@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import redis.clients.jedis.GeoCoordinate;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.*;
 import redis.clients.jedis.args.GeoUnit;
 import redis.clients.jedis.resps.GeoRadiusResponse;
 
@@ -40,16 +38,24 @@ public class ControllerService {
         * Encontra food truck's dentro de um determinado raio em KM base em coordenadas geográficas(lat , lon)
         */
         String key = "app:foodtruck";
-        List<GeoRadiusResponse> GeoRadiusMembers;
         List<FoodTruckLocationDTO> response = new ArrayList<>();
+
         try(Jedis jedis = jedisPool.getResource()){
-            GeoRadiusMembers =  jedis.georadius(key, data.longitude(),
+            Pipeline pipeline = jedis.pipelined();
+            Response<List<GeoRadiusResponse>> PipelineGeoRadiusMembers =  pipeline.georadius(
+                    key, data.longitude(),
                     data.latitude(), data.radius(),
                     GeoUnit.KM);
+            pipeline.sync();
+
+            List<GeoRadiusResponse> GeoRadiusMembers = PipelineGeoRadiusMembers.get();
 
             for(GeoRadiusResponse member : GeoRadiusMembers){
-                GeoCoordinate memberCoordinate = jedis.geopos(key, member.getMemberByString()).get(0);
-                FoodTruckLocationDTO memberLocation = new FoodTruckLocationDTO(memberCoordinate.getLatitude(), memberCoordinate.getLongitude(), member.getMemberByString());
+                Response<List<GeoCoordinate>> PipelineMemberCoordinate = pipeline.geopos(key, member.getMemberByString());
+                pipeline.sync();
+
+                List<GeoCoordinate> memberCoordinate = PipelineMemberCoordinate.get();
+                FoodTruckLocationDTO memberLocation = new FoodTruckLocationDTO(memberCoordinate.get(0).getLatitude(), memberCoordinate.get(0).getLongitude(), member.getMemberByString());
                 response.add(memberLocation);
             }
         }
