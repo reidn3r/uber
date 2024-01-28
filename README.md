@@ -21,7 +21,6 @@
   <div> <h2> Próximos passos </h2> </div>
   <ul>
     <li>Testes (JUnit) </li>
-    <li>Documentação</li>
   </ul>
 </div>
 
