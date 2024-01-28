@@ -1,4 +1,4 @@
-package com.example.uber.DTO;
+package com.example.uber.adapters.web.dtos;
 
 import lombok.Getter;
 import lombok.Setter;

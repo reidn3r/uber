@@ -1,4 +1,4 @@
-package com.example.uber.Config;
+package com.example.uber.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

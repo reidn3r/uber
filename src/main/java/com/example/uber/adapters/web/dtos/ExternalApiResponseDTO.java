@@ -1,4 +1,4 @@
-package com.example.uber.DTO;
+package com.example.uber.adapters.web.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;

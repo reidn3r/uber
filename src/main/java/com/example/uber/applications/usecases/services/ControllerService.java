@@ -1,6 +1,7 @@
-package com.example.uber.Services;
+package com.example.uber.applications.usecases.services;
 
-import com.example.uber.DTO.*;
+import com.example.uber.adapters.web.dtos.FoodTruckLocationDTO;
+import com.example.uber.adapters.web.dtos.UserLocationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
