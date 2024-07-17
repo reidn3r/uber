@@ -2,7 +2,7 @@
 <p align="center">  <a href="https://github.com/uber-archive/coding-challenge-tools/blob/master/coding_challenge.md" target="_blank"> Desafio Backend </a> UBER, proposto em 2016 </p>
 <hr>
 
-<p> O problema consiste em crar um serviço que indica ao usuário quais tipos de food trucks podem ser encontrados próximo a uma determinada localização no mapa.</p>
+<p> O problema consiste em criar um serviço que indica ao usuário quais tipos de food trucks podem ser encontrados próximo a uma determinada localização no mapa.</p>
 
 ## Detalhes:
     1.0: Para cada requisição enviada para a API externa, os resultados são salvos em cache (Redis)
